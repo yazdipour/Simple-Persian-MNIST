@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         //get drawing view from XML (where the finger writes the number)
 //        drawView = findViewById<View>(R.id.draw) as DrawView
         //get the model object
