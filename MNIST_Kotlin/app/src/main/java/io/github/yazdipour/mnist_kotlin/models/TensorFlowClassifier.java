@@ -1,15 +1,8 @@
 package io.github.yazdipour.mnist_kotlin.models;
 
-
-//Provides access to an application's raw asset files;
 import android.content.res.AssetManager;
-//Reads text from a character-input stream, buffering characters so as to provide for the efficient reading of characters, arrays, and lines.
 import java.io.BufferedReader;
-//for erros
 import java.io.IOException;
-//An InputStreamReader is a bridge from byte streams to character streams:
-// //It reads bytes and decodes them into characters using a specified charset.
-// //The charset that it uses may be specified by name or may be given explicitly, or the platform's default charset may be accepted.
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +17,21 @@ import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
 //lets create this classifer
 public class TensorFlowClassifier implements Classifier {
-
-    // Only returns if at least this confidence
-    //must be a classification percetnage greater than this
     private static final float THRESHOLD = 0.1f;
-
     private TensorFlowInferenceInterface tfHelper;
-
     private String name;
     private String inputName;
     private String outputName;
     private int inputSize;
     private boolean feedKeepProb;
-
     private List<String> labels;
     private float[] output;
     private String[] outputNames;
+
+    @Override
+    public String name() {
+        return name;
+    }
 
     //given a saved drawn model, lets read all the classification labels that are
     //stored and write them to our in memory labels list
@@ -56,7 +48,7 @@ public class TensorFlowClassifier implements Classifier {
         return labels;
     }
 
-   //given a model, its label file, and its metadata
+    //given a model, its label file, and its metadata
     //fill out a classifier object with all the necessary
     //metadata including output prediction
     public static TensorFlowClassifier create(AssetManager assetManager, String name,
@@ -64,8 +56,6 @@ public class TensorFlowClassifier implements Classifier {
             boolean feedKeepProb) throws IOException {
         //intialize a classifier
         TensorFlowClassifier c = new TensorFlowClassifier();
-
-        //store its name, input and output labels
         c.name = name;
 
         c.inputName = inputName;
@@ -90,11 +80,6 @@ public class TensorFlowClassifier implements Classifier {
         c.feedKeepProb = feedKeepProb;
 
         return c;
-    }
-
-    @Override
-    public String name() {
-        return name;
     }
 
     @Override

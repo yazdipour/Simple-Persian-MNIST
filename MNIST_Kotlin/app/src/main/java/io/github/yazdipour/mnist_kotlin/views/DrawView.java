@@ -25,10 +25,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Changed by marianne-linhares on 20/04/17.
- */
-
 public class DrawView extends View {
 
     private Paint mPaint = new Paint();
@@ -53,8 +49,6 @@ public class DrawView extends View {
         this.mModel = model;
     }
 
-    //reset the view, so empty the drawing (set everything to white and redraw the 28x28
-    //rectangle
     public void reset() {
         mDrawnLineSize = 0;
         if (mOffscreenBitmap != null) {
@@ -65,15 +59,10 @@ public class DrawView extends View {
         }
     }
 
-    //create the view, for a given length and width
     private void setup() {
         mSetuped = true;
-
-        // View size
         float width = getWidth();
         float height = getHeight();
-
-        // Model (bitmap) size
         float modelWidth = mModel.getWidth();
         float modelHeight = mModel.getHeight();
 
@@ -97,8 +86,6 @@ public class DrawView extends View {
     }
 
     @Override
-    //when the user begins drawing, initialize
-    //the model renderer class and draw it on the canvas
     public void onDraw(Canvas canvas) {
         if (mModel == null) {
             return;
@@ -124,7 +111,6 @@ public class DrawView extends View {
     /**
      * Convert screen position to local pos (pos in bitmap)
      */
-    //calculates the position of the finger
     public void calcPos(float x, float y, PointF out) {
         mTmpPoints[0] = x;
         mTmpPoints[1] = y;
@@ -141,7 +127,6 @@ public class DrawView extends View {
         releaseBitmap();
     }
 
-    //to draw the canvas we need the bitmap
     private void createBitmap() {
         if (mOffscreenBitmap != null) {
             mOffscreenBitmap.recycle();
@@ -160,9 +145,6 @@ public class DrawView extends View {
         reset();
     }
 
-    /**
-     * Get 28x28 pixel data for tensorflow input.
-     */
     public float[] getPixelData() {
         if (mOffscreenBitmap == null) {
             return null;

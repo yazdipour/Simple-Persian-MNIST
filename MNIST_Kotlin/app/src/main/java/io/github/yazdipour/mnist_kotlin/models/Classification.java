@@ -1,9 +1,5 @@
 package io.github.yazdipour.mnist_kotlin.models;
 
-/**
- * Created by marianne-linhares on 20/04/17.
- */
-
 public class Classification {
 
     //conf is the output

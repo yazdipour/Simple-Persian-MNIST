@@ -17,13 +17,9 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchListener {
     private val PIXEL_WIDTH = 28
 
-    // ui elements
-//    private var btn_clear: Button? = null
-//    private var btn_class: Button? = null
-//    private var tfRes: TextView? = null
-    private val mClassifiers = ArrayList<Classifier>()
 
     // views
+    private val mClassifiers = ArrayList<Classifier>()
     private var drawModel: DrawModel? = null
     private val mTmpPiont = PointF()
 
@@ -32,14 +28,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchList
     //the activity lifecycle
 
     override//OnResume() is called when the user resumes his Activity which he left a while ago,
-    // //say he presses home button and then comes back to app, onResume() is called.
     fun onResume() {
         drawView?.onResume()
         super.onResume()
     }
 
     override//OnPause() is called when the user receives an event like a call or a text message,
-    // //when onPause() is called the Activity may be partially or completely hidden.
     fun onPause() {
         drawView?.onPause()
         super.onPause()
@@ -50,28 +44,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchList
         setContentView(R.layout.activity_main)
 
         //get drawing view from XML (where the finger writes the number)
-//        drawView = findViewById<View>(R.id.draw) as DrawView
         //get the model object
         drawModel = DrawModel(PIXEL_WIDTH, PIXEL_WIDTH)
 
-        //init the view with the model object
         drawView?.setModel(drawModel)
         // give it a touch listener to activate when the user taps
         drawView?.setOnTouchListener(this)
-
-        //clear button
-        //clear the drawing when the user taps
-//        btn_clear = findViewById<View>(R.id.btn_clear) as Button
         btn_clear?.setOnClickListener(this)
 
         //class button
         //when tapped, this performs classification on the drawn image
-//        btn_class = findViewById<View>(R.id.btn_class) as Button
         btn_class?.setOnClickListener(this)
-
-        // res text
-        //this is the text that shows the output of the classification
-//        tfRes = findViewById<View>(R.id.tfRes) as TextView
 
         // tensorflow
         //load up our saved model to perform inference from local storage
@@ -174,8 +157,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchList
     }
 
     override//this method detects which direction a user is moving
-    //their finger and draws a line accordingly in that
-    //direction
+    //their finger and draws a line accordingly in that direction
     fun onTouch(v: View, event: MotionEvent): Boolean {
         //get the action and store it as an int
         val action = event.action and MotionEvent.ACTION_MASK
