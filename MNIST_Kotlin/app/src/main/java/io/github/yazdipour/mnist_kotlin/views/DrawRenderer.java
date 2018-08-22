@@ -23,13 +23,6 @@ import android.graphics.Paint;
 
 
 public class DrawRenderer {
-    /**
-     * Draw lines to canvas
-     */
-    //straight up drawing function to make the drawing visible to
-    //the user. directly manipulates XML
-    //given a canvas, a model drawing stored in memory, a color metadata,
-    //start drawing!
     public static void renderModel(Canvas canvas, DrawModel model, Paint paint,
                                    int startLineIndex) {
         paint.setAntiAlias(true);

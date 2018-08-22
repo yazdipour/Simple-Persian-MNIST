@@ -42,18 +42,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //get drawing view from XML (where the finger writes the number)
-        //get the model object
         drawModel = DrawModel(PIXEL_WIDTH, PIXEL_WIDTH)
-
         drawView?.setModel(drawModel)
-        // give it a touch listener to activate when the user taps
         drawView?.setOnTouchListener(this)
         btn_clear?.setOnClickListener(this)
-
-        //class button
-        //when tapped, this performs classification on the drawn image
         btn_class?.setOnClickListener(this)
 
         // tensorflow
@@ -102,42 +94,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchList
     //creates a model object in memory using the saved tensorflow protobuf model file
     //which contains all the learned weights
     private fun loadModel() {
-        //The Runnable interface is another way in which you can implement multi-threading other than extending the
-        // //Thread class due to the fact that Java allows you to extend only one class. Runnable is just an interface,
-        // //which provides the method run.
-        // //Threads are implementations and use Runnable to call the method run().
         Thread(Runnable {
             try {
-                //add 2 classifiers to our classifier arraylist
-                //the tensorflow classifier and the keras classifier
-                Log.d("XXXXXXXXX", PIXEL_WIDTH.toString())
+                //add our classifiers to our classifier arraylist
                 mClassifiers.add(
                         TensorFlowClassifier.create(assets, "TensorFlow",
                                 "opt_mnist_convnet-tf.pb", "labels.txt", PIXEL_WIDTH,
                                 "input", "output", true))
             } catch (e: Exception) {
-                //if they aren't found, throw an error!
                 throw RuntimeException("Error initializing classifiers!", e)
             }
         }).start()
     }
 
     override fun onClick(view: View) {
-        //when the user clicks something
         if (view.id == R.id.btn_clear) {
-            //if its the clear button
-            //clear the drawing
             drawModel?.clear()
             drawView?.reset()
             drawView?.invalidate()
-            //empty the text view
             tfRes?.setText("")
-        } else if (view.id == R.id.btn_class) {
-            //if the user clicks the classify button
-            //get the pixel data and store it in an array
+        } else 
+        if (view.id == R.id.btn_class) {
             val pixels = drawView?.getPixelData()
-
-            //init an empty string to fill with the classification output
             var text = ""
             //for each classifier in our array
             for (classifier in mClassifiers) {
